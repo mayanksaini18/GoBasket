@@ -23,9 +23,13 @@ console.log("Firebase Config:", firebaseConfig);
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
-let analytics;
-if (typeof window !== 'undefined') {
-  isSupported().then((yes) => yes && (analytics = getAnalytics(app)));
-}
-
+export const initAnalytics = async () => {
+  if (typeof window !== "undefined") {
+    const supported = await isSupported();
+    if (supported) {
+      return getAnalytics(app);
+    }
+  }
+  return null;
+};
 export const auth = getAuth(app);
