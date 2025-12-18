@@ -18,7 +18,7 @@ const firebaseConfig = {
 };
 
 // Temporary log to verify environment variables
-console.log("Firebase Config:", firebaseConfig);
+// console.log("Firebase Config:", firebaseConfig);
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
