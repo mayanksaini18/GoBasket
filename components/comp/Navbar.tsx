@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
 import { ShoppingCart, User } from "lucide-react";
-import { user } from "lucide-react";
+
 
 export default function Navbar() {
   const items = useAppSelector((state) => state.cart.items);
