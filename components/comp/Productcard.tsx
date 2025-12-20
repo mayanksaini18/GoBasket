@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addItem, increment, decrement } from "@/store/slices/cart.slice";
 
+import {useRouter} from "next/navigation";
+
 interface Props {
   id: string;
   name: string;
@@ -17,12 +19,15 @@ interface Props {
 
 export default function ProductCard(props: Props) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const item = useAppSelector(
     state => state.cart.items.find(i => i.id === props.id)
   );
 
   return (
-    <Card className="w-[180px] rounded-xl border hover:shadow-md transition">
+    <Card className="w-[180px] rounded-xl border hover:shadow-md transition " onClick={()=>{
+      router.push(`/product/${props.id}`)
+    }}>
       {/* IMAGE */}
       <div className="flex justify-center items-center h-[120px]  rounded-t-xl">
         <Image
@@ -30,7 +35,7 @@ export default function ProductCard(props: Props) {
           alt={props.name}
           width={90}
           height={90}
-          className="object-contain"
+          className="object-fill"
         />
       </div>
 
@@ -52,8 +57,10 @@ export default function ProductCard(props: Props) {
             <Button
               variant="neon"
               size="sm"
-              onClick={() =>
+              onClick={(e) =>{
+                  e.stopPropagation();  
                 dispatch(addItem({ ...props, quantity: 1 }))
+              }
               }
             >
               Add
@@ -64,7 +71,10 @@ export default function ProductCard(props: Props) {
                 size="icon"
                 variant="outline"
                 className="h-7 w-7"
-                onClick={() => dispatch(decrement(props.id))}
+                onClick={(e) =>{
+                    e.stopPropagation();
+                  dispatch(decrement(props.id))}
+                }
               >
                 <Minus size={14} />
               </Button>
@@ -77,7 +87,12 @@ export default function ProductCard(props: Props) {
                 size="icon"
                 variant="neon"
                 className="h-7 w-7"
-                onClick={() => dispatch(increment(props.id))}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(increment(props.id))
+                }
+
+                }
               >
                 <Plus size={14} />
               </Button>

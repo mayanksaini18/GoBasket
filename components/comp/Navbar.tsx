@@ -33,11 +33,6 @@ export default function Navbar() {
           <Button variant="neon" className="relative gap-2">
             <User />
             Login
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-black text-white text-xs font-semibold rounded-full px-2">
-                {cartCount}
-              </span>
-            )}
           </Button>
         </Link>
         <Link href="/cart">
